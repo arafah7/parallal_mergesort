@@ -1,4 +1,4 @@
-README.template
+# README
 
 ## Assignment 3 - parallel mergesort
 
@@ -7,8 +7,7 @@ README.template
 
 ## Overview
 
-
-this program sorts integers of a randomly generated array.It uses a mergesort algorithm which has logarithmic time complexity.Now instead of one thread , doing all the work ,the program splits the task into multiple threads,we make new threads untill a cutoff has been met.Threads at cutoff sort themselves with oridinary mergesort.The goal is sort the array faster using multithreading and examine how fast the sorting gets when we use more threads
+This program sorts integers of a randomly generated array. It uses a mergesort algorithm which has logmarithmic time complexity. Now instead of one thread, doing all the work, the program splits the task into multiple threads. We make new threads untill a cutoff has been met.Threads at cutoff sort themselves with oridinary mergesort.The goal is sort the array faster using multithreading and examine how fast the sorting gets when we use more threads
 
 
 ## Manifest
@@ -71,8 +70,7 @@ The third came while we were adding checks on the return value of `pthread_creat
 
 ## Reflection and Self Assessment
 
-We learned a lot about operating systems while doing this assignment.We first started by looking at the address space of the process and threads and we built a mental model that helped us to visualise the whole structure and built really deep intuition. we listed down them ,what lies in each address space.we built the followint the mental map.Text holds the compiled code of main, merge, my_mergesort, parallel_mergesort and buildArgs. Data holds the three globals: cutoff, and the pointers A and B. Heap holds the two arrays of n ints that A and B point to, the root struct argument, and every child struct argument. Stack holds every local variable, on the stack of whichever thread is running: main's n,seed, start_time sorting_time and arg; parallel_mergesort's myArg, left, right, level, mid, leftArg, rightArg, t1, t2, created1 and created2; my_mergesort's left, right and mid; merge's i, j and k; and buildArgs's newArg.We also had a long discussion on why locks are not needed.We figured out that each thread independent with no sharing resources,hence locks are needed,we just need to synchronise the threads so that the child threads finish first before the parent one.Looking at the source code of linux on how task struct is implemented helped build a good intuition on this as well.
-
+We learned a lot about operating systems while doing this assignment.We first started by looking at the address space of the process and threads and we built a mental model that helped us to visualise the whole structure and built really deep intuition. we listed down them ,what lies in each address space. We built the following mental map. Text holds the compiled code of main, merge, my_mergesort, parallel_mergesort and buildArgs. Data holds the three globals: cutoff, and the pointers A and B. Heap holds the two arrays of n ints that A and B point to, the root struct argument, and every child struct argument. Stack holds every local variable, on the stack of whichever thread is running: main's n,seed, start_time sorting_time and arg; parallel_mergesort's myArg, left, right, level, mid, leftArg, rightArg, t1, t2, created1 and created2; my_mergesort's left, right and mid; merge's i, j and k; and buildArgs's newArg.We also had a long discussion on why locks are not needed. We figured out that each thread is independent with no sharing resources, hence locks are not needed, we just needed to synchronise the threads so that the child threads finish first before their parents. Looking at the source code of linux on how task struct is implemented helped build a good intuition on this as well. 
 
 
 
