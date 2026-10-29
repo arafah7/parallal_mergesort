@@ -1,6 +1,4 @@
-/**
- * This file implements parallel mergesort.
- */
+/* This file implements parallel mergesort. */
 
 #include <stdio.h>
 #include <string.h> /* for memcpy */
@@ -9,8 +7,8 @@
 
 /* this function will be called by mergesort() and also by parallel_mergesort(). */
 
-/* this function merges the two sorted parts of array a and it temporarily stores it in arr B  and then we copy the result back 
-*/
+/* this function merges the two sorted parts of array a and it temporarily stores it in arr B  
+and then we copy the result back */
 
 void merge(int leftstart, int leftend, int rightstart, int rightend){
     int i = leftstart;
@@ -51,8 +49,8 @@ void merge(int leftstart, int leftend, int rightstart, int rightend){
 
 
 
-/*  this is the normal mergesort function ,nothing special about it,
-after cutoff level the threads use this  */
+/* this is the normal mergesort function ,nothing special about it,
+after cutoff level the threads use this */
 
 void my_mergesort(int left, int right){
     if (left >= right) { //checks subarray length 
@@ -69,10 +67,9 @@ void my_mergesort(int left, int right){
 }
 /* this function will be called by the testing program. */
 
-/* 
-
-  it sorts the array using threads , and threads call this function when cutoff is not met and it starts a thread for every half ,the struct is passed onto this and we only free the two child structs after the joins 
-  */
+/* it sorts the array using threads , and threads call this function when cutoff is not met 
+and it starts a thread for every half ,the struct is passed onto this and we only free the 
+two child structs after the joins */
 
 void * parallel_mergesort(void *arg){
     struct argument *myArg = (struct argument *) arg;
@@ -85,14 +82,14 @@ void * parallel_mergesort(void *arg){
         return NULL;
     }
 
-    if (level >= cutoff) { //prevents creating more threads than we need
+    if (level >= cutoff) { //prevents creating more threads then defined
         my_mergesort(left, right);
         return NULL;
 
     } else { 
         int mid = left + (right - left) / 2; //splits array in half
-        struct argument *leftArg = buildArgs(left, mid, level + 1); // initualises range of left to mid, dynamically allocates memory
-        struct argument *rightArg = buildArgs(mid + 1, right, level + 1); // initualises range of mid+1 to right dynamically allocates memory
+        struct argument *leftArg = buildArgs(left, mid, level + 1); // initalises range of left to mid, dynamically allocates memory
+        struct argument *rightArg = buildArgs(mid + 1, right, level + 1); // initalises range of mid+1 to right dynamically allocates memory
 		
         if (leftArg == NULL || rightArg == NULL) { //checks if both allocations failed
             free(leftArg); // free allocated heap memory
@@ -115,7 +112,7 @@ void * parallel_mergesort(void *arg){
             parallel_mergesort(rightArg);
         }
 
-        // pthread_join ensures both halves are sorted before merging
+        // pthread_join ensures both halves are completed before merging
         if (created1) {
             pthread_join(t1, NULL);
         }
