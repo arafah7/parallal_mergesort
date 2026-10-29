@@ -17,34 +17,37 @@ void merge(int leftstart, int leftend, int rightstart, int rightend){
     int j = rightstart;
     int k = leftstart;
 
-     while(i<=leftend && j<=rightend){ 
+    while(i<=leftend && j<=rightend){ 
         if(A[i]<=A[j]){ //compare the left side of array A with the right side of array A 
-         B[k]=A[i]; // the smaller value is stored in B 
-         i++;
-          k++;
-       }
-        else{
-              B[k] = A[j]; // if A[j] is smaller, it gets stored in B 
-             j++;
-             k++;
-        }
-
-    }
-
-        while(i<=leftend){
-            B[k]=A[i]; // if the right side elements are done, the left side is copied into array B
+            B[k]=A[i]; // the smaller value is stored in B 
             i++;
             k++;
-        }
-        while(j<=rightend){
-            B[k]=A[j]; // if the left side elements are done, the right side is copied into array B
-            k++;
+
+       } else{
+            B[k] = A[j]; // if A[j] is smaller, it gets stored in B 
             j++;
+            k++;
+
         }
 
-        memcpy(A + leftstart, B + leftstart, (rightend - leftstart + 1) * sizeof(int));
-            // since B is a temporary array, the memory of the sorted array is copied back to A
     }
+
+    while(i<=leftend){
+        B[k]=A[i]; // if the right side elements are done, the left side is copied into array B
+        i++;
+        k++;
+    }
+        
+    while(j<=rightend){
+        B[k]=A[j]; // if the left side elements are done, the right side is copied into array B
+        k++;
+        j++;
+    }
+
+    memcpy(A + leftstart, B + leftstart, (rightend - leftstart + 1) * sizeof(int));
+    // since B is a temporary array, the memory of the sorted array is copied back to A
+
+}
 
 
 
