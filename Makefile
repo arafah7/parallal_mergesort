@@ -1,3 +1,5 @@
+#the makefile bonds all the code together
+
 CC = gcc
 CFLAGS = -Wall -Wpointer-arith -Wstrict-prototypes -std=gnu89 -fPIC -MMD -MP -lpthread
 
