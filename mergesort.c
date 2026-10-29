@@ -17,14 +17,14 @@ void merge(int leftstart, int leftend, int rightstart, int rightend){
     int j = rightstart;
     int k = leftstart;
 
-     while(i<=leftend && j<=rightend){
-        if(A[i]<=A[j]){
-         B[k]=A[i];
+     while(i<=leftend && j<=rightend){ 
+        if(A[i]<=A[j]){ //compare the left side of array A with the right side of array A 
+         B[k]=A[i]; // the smaller value is stored in B 
          i++;
           k++;
        }
         else{
-              B[k] = A[j];
+              B[k] = A[j]; // if A[j] is smaller, it gets stored in B 
              j++;
              k++;
         }
@@ -32,23 +32,26 @@ void merge(int leftstart, int leftend, int rightstart, int rightend){
         }
 
         while(i<=leftend){
-            B[k]=A[i];
+            B[k]=A[i]; // if the right side is empty, the left side is sorted into array B
             i++;
             k++;
         }
         while(j<=rightend){
-            B[k]=A[j];
+            B[k]=A[j]; // if the left side is empty, the right side is sorted into array B
             k++;
             j++;
         }
 
         memcpy(A + leftstart, B + leftstart, (rightend - leftstart + 1) * sizeof(int));
+            // since B is a temporary array, the memory of the sorted array is copied back to A
     }
 
 
 
 /*  this is the normal mergesort function ,nothing special about it,
 after cutoff level the threads use this  */
+
+/*the above merge function helps the merge sort function and makes it more efficient since there is less needed to sort*/
 
 void my_mergesort(int left, int right){
     if (left >= right) {
